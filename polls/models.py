@@ -7,7 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 import datetime
 
 # Create your models here.
-@python_2_unicode_compatible 
+@python_2_unicode_compatible
 class Question(models.Model):
   """docstring for Question"""
   question_text = models.CharField(max_length =200)
@@ -16,9 +16,9 @@ class Question(models.Model):
     return self.question_text
 
   def was_published_recently(self):
-    return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-
-@python_2_unicode_compatible 
+    now = timezone.now()
+    return now - datetime.timedelta(days = 1) <= self.pub_date <= now
+@python_2_unicode_compatible
 class Choice(models.Model):
   """docstring for Choice"""
   question = models.ForeignKey(Question,on_delete=models.CASCADE)
